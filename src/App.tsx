@@ -1,11 +1,18 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import StartPage from './component/StartPage';
+import LoginPage from './component/LoginPage';
 import PrologPage from './pages/prologPage'
-import './App.css'
 
 function App() {
   return (
-    <div className="App">
-      <PrologPage />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<StartPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/prolog" element={<PrologPage />} />
+      </Routes>
+    </Router>
   )
 }
 
