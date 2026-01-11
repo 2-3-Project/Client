@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import styled, { keyframes } from 'styled-components';
-import background1 from '../assets/background1.png';
+import styled,{ keyframes } from 'styled-components';
+import background2 from '../assets/background2.png';
 import playerImg from '../assets/player-start-1.png';
 import playerProfileImg from '../assets/player-start-profile.png';
-
-import npc1_1 from '../assets/npc1-1.png'; 
-import npc1_2 from '../assets/npc1-2.png'; 
-
+import npc2_1 from '../assets/npc2-1.png';
+import npc2_2 from '../assets/npc2-2.png';
+import npc2_3 from '../assets/npc2-3.png';
 import npc_profile1 from '../assets/npc-profile1.png';
 import npc_profile2 from '../assets/npc-profile2.png';
 import npc_profile3 from '../assets/npc-profile3.png';
@@ -16,7 +15,7 @@ import mic from '../assets/mic.png';
 import playerbattle1 from '../assets/player-change-1.png';
 import playerbattle2 from '../assets/player-change-2.png';
 import playerbattle3 from '../assets/player-change-3.png';
-import background2_1 from '../assets/background2-1.png';
+import background2_1 from '../assets/background2-1.png'
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -39,6 +38,7 @@ const pulse = keyframes`
     opacity: 0;
   }
 `;
+
 
 const Container = styled.div<{ $bg: string }>`
   width: 100vw;
@@ -108,7 +108,7 @@ const ProfileWrapper = styled.div`
 const ProfileInner = styled.div`
   width: 100%;
   height: 100%;
-  padding: 20px;
+  padding:20px;
   background-color: rgba(255, 255, 255, 0.2);
   overflow: hidden;
   display: flex;
@@ -138,7 +138,7 @@ const MessageBox = styled.div`
 `;
 
 const NameTag = styled.div`
-  letter-spacing: -0.2rem;
+  letter-spacing : -0.2rem;
   position: absolute;
   top: -70px;
   left: 0;
@@ -170,7 +170,6 @@ const DialogueText = styled.div<{ $speak: boolean }>`
   font-family: ${({ $speak }) =>
     $speak ? "'Cafe24ClassicType'" : 'inherit'};
 `;
-
 const SpeakOverlay = styled.div`
   position: absolute;
   inset: 0;
@@ -178,7 +177,6 @@ const SpeakOverlay = styled.div`
   z-index: 1;
   pointer-events: none;
 `;
-
 const MicCircle = styled.div`
   width: 150px;
   height: 150px;
@@ -199,7 +197,6 @@ const MicImage = styled.img`
   width: 80px;
   height: 80px;
 `;
-
 const PulseRing = styled.div`
   position: absolute;
   width: 100%;
@@ -208,7 +205,6 @@ const PulseRing = styled.div`
   background: rgba(255, 105, 180, 0.4);
   animation: ${pulse} 1.6s ease-out infinite;
 `;
-
 const PulseRingDelay = styled(PulseRing)`
   animation-delay: 0.8s;
 `;
@@ -225,19 +221,17 @@ const SpeakMicWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
-
 const BattleHUD = styled.div`
   position: absolute;
   top: 20px;
   left: 0;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-center;
   padding: 0 80px; 
-  gap: 550px;
+  gap:550px;
   z-index: 30;
 `;
-
 const HpBarWrapper = styled.div`
   width: 360px;
 `;
@@ -262,7 +256,6 @@ const PlayerhpBarFill = styled.div<{ $hp: number }>`
   background: linear-gradient(90deg, #FF9D8C 0%, #FC33A9 100%);
   transition: width 0.4s ease;
 `;
-
 const EnemyhpBarFill = styled.div<{ $hp: number }>`
   width: ${({ $hp }) => $hp}%;
   height: 100%;
@@ -270,19 +263,18 @@ const EnemyhpBarFill = styled.div<{ $hp: number }>`
   transition: width 0.4s ease;
 `;
 
-const PrologPage = () => {
+const ComputerLabPage = () => {
   const [step, setStep] = useState(1);
   const [currentLine, setCurrentLine] = useState(0);
   const [battlePhase, setBattlePhase] = useState<'intro' | 'idle' | 'attack'>('intro');
-  
-  // 1. 처음 시작할 때도 랜덤 이미지 하나 설정
-  const [currentNpcImage, setCurrentNpcImage] = useState(() => Math.random() < 0.5 ? npc1_1 : npc1_2);
 
   const PLAYER_MAX_HP = 100000;
   const ENEMY_MAX_HP = 50000;
 
   const [playerHp, setPlayerHp] = useState(100000);
   const [enemyHp, setEnemyHp] = useState(50000);
+
+
 
   const playerHpPercent = (playerHp / PLAYER_MAX_HP) * 100;
   const enemyHpPercent = (enemyHp / ENEMY_MAX_HP) * 100;
@@ -292,34 +284,32 @@ const PrologPage = () => {
     '인간이 다섯 명이나 모이면 말이야… 반드시 한 명 쓰레기가 있다',
     '샤랄라 꿈꿔 왔던 내 모습 마법 소녀로 변신',
     '후루룩 짭짭 펑! 푸딩 폭풍 스윗 푸딩 블라스트',
-    '착한 마음으로 물들어라 ',
+    '착한 마음으로 물들어라	',
     '거대한 탐욕이여, 너의 본색을 드러내라!',
     '잃어버린 양심을 되찾아 줄 희망의 빛이여!',
     '화염을 부르는 마법! 파이너셜 파이어스톰 테러!',
     '니코니코 웃음, 마음을 환하게! 러브 스마일, 러브 웨이브!',
     '혼란의 마음에 고요한 안식을 소울 캄 캡슐 라이트!',
     '빛나는 별의 장막을 펼쳐줄래? 하이 톤 갤럭시 스크린!',
-  ];
+    ];
 
   const dialogues: {
     speaker: SpeakerKey;
     situation: string;
     text: string; 
   }[] = [
-    { speaker: 'player', situation: 'story', text: '학교가 사라지면 내가 좀 편해질까?' },
-    { speaker: 'sebaschan', situation: 'story', text: '내가 도와줄까?' },
-    { speaker: 'player', situation: 'story', text: '세바스찬? 말을 하는 세바스찬?' },
-    { speaker: 'sebaschan', situation: 'story', text: '나는 세바스찬. 너의 말을 듣고 너를 도와주기 위해서 나타났어.' },
-    { speaker: 'player', situation: 'story', text: '왜? 뭔가 수호령 같은 존재 아니었어? 왜 날 도와주려는 거야?' },
-    { speaker: 'sebaschan', situation: 'story', text: '아니. 난 지금 학교에 불만이 많아. 왜냐하면 내 형제들이 맨날 미림의 부실한 관리로 인해서 왜가리들에게 먹혔다고..!' },
-    { speaker: 'sebaschan', situation: 'story', text: '난 그런 학교를 용서 할 수 없어. 너를 도와줄게.' },
-    { speaker: 'sebaschan', situation: 'story', text: '자 이건 선물이야. 이걸 이용하면 학교를 폭파시키는데 도움이 될 거야. 마법소녀로 변신할 수 있어.' },
-    { speaker: 'player', situation: 'story', text: '마법소녀? 그 애니에서만 나오던 거??' },
-    { speaker: 'sebaschan', situation: 'story', text: '변신 주문은 “치링치링 샤랄라 나날이 예뻐지는 나. 너무나도 소중해”라고 마법봉을 들고 외치면 돼!' },
-    { speaker: 'player', situation: 'speak', text: '치링치링 샤랄라 나날이 예뻐지는 나. 너무나도 소중해' },
-    { speaker: 'player', situation: 'story', text: '뭐야 교복에서 빛이 나잖아!' },
-    { speaker: 'sebaschan', situation: 'story', text: '맞아. 이제 넌 마법소녀의 힘을 얻었어. 이 힘으로 학교를 폭파 시키자!' },
-    { speaker: 'player', situation: 'story', text: '알겠어! 가보자!' },
+    { speaker: 'yoonjiT', situation: 'story', text: '미림아 어디를 다녀온거야?' },
+    { speaker: 'player', situation: 'story', text: '선생님 전 이 학교를 폭파시킬 겁니다.' },
+    { speaker: 'jinhaT', situation: 'story', text: '헛소리하지 말고 앉아라.' },
+    { speaker: 'player', situation: 'story', text: '선생님, 전 지금 마법소녀의 힘을 얻었어요 이 힘으로 학교를 폭파시키겠습니다!' },
+    { speaker: 'yoonjiT', situation: 'story', text: '미림아.. 요즘 힘든 건 알겠는데, 어디가 아픈거니?' },
+    { speaker: 'player', situation: 'story', text: '선생님들 절 막으신다면 전 선생님들을 쓰러트리는 수 밖에 없어요' },
+    { speaker: 'sebaschan', situation: 'story', text: '마법소녀로 변신하자! 이제 밑에 나오는 대사를 외치면 돼!' },
+    { speaker: 'player', situation: 'speak', text: '치링치링 샤랄라 나날이 예뻐지는 나. 너무나도 소중해!' },
+    { speaker: 'sebaschan', situation: 'battle', text: '이제 공격하자! 대사를 따라 외쳐봐!!' },
+    { speaker: 'teachers', situation: 'defeat', text: '진도 나가야 해. 빨리 자리에 앉아' },
+    { speaker: 'teachers', situation: 'victory', text: '알겠어. 말리지 않을게' },
+    { speaker: 'sebaschan', situation: 'victory', text: '좋아 이제 다른 곳을 가자!' },
   ];
 
   const speakerConfig = {
@@ -327,9 +317,21 @@ const PrologPage = () => {
       name: 'Player',
       profile: playerProfileImg,
     },
+    yoonjiT: {
+      name: '김윤지 선생님',
+      profile: npc_profile2,
+    },
+    jinhaT: {
+      name: '임진하 선생님',
+      profile: npc_profile3,
+    },
     sebaschan: {
       name: '세바스찬',
       profile: npc_profile1,
+    },
+    teachers: {
+      name: '임진하&김윤지 선생님',
+      profile: npc_profile4,
     },
   } as const;
 
@@ -367,23 +369,23 @@ const PrologPage = () => {
   useEffect(() => {
     if (isBattle) {
       if (enemyHp <= 0) {
+        // 적 체력이 0일 때: 'victory' 상황의 첫 번째 대사 인덱스 찾기
         const victoryIdx = dialogues.findIndex(d => d.situation === 'victory');
         if (victoryIdx !== -1) setCurrentLine(victoryIdx);
-        setBattlePhase('idle');
+        setBattlePhase('idle'); // 배틀 페이즈 초기화
       } else if (playerHp <= 0) {
+        // 플레이어 체력이 0일 때: 'defeat' 상황의 첫 번째 대사 인덱스 찾기
         const defeatIdx = dialogues.findIndex(d => d.situation === 'defeat');
         if (defeatIdx !== -1) setCurrentLine(defeatIdx);
         setBattlePhase('idle');
       }
     }
-  }, [enemyHp, playerHp, isBattle, dialogues]);
+  }, [enemyHp, playerHp, isBattle]);
 
   const handleNextDialogue = () => {
     if (step !== 2) return;
-    
-    // 2. 클릭할 때마다 NPC 이미지 랜덤 변경
-    setCurrentNpcImage(Math.random() < 0.5 ? npc1_1 : npc1_2);
   
+    // 배틀 상황일 때
     if (isBattle) {
       if (battlePhase === 'intro') {
         setBattlePhase('idle');
@@ -397,12 +399,19 @@ const PrologPage = () => {
       }
   
       if (battlePhase === 'attack') {
+        // 클릭 시 적의 체력을 10000씩 감소 (마지막에 0이 되면 위 useEffect가 감지)
         setEnemyHp(prev => Math.max(0, prev - 10000));
+        
+        /* (참고) 플레이어의 체력을 깎고 싶다면 아래처럼 사용하세요:
+           setPlayerHp(prev => Math.max(0, prev - 20000));
+        */
+        
         setBattlePhase('idle');
         return;
       }
     }
   
+    // 일반 대사(victory, defeat 포함) 흐름
     if (currentLine < dialogues.length - 1) {
       setCurrentLine(currentLine + 1);
     }
@@ -411,21 +420,26 @@ const PrologPage = () => {
   const showMic = isSpeak || (isBattle && battlePhase === 'attack');
   const showDialogueBox = !isBattle || (isBattle && battlePhase !== 'idle');
 
+  
+  
+
   return (
-    <Container $bg={background1} onClick={handleNextDialogue}>
+    <Container $bg={background2} onClick={handleNextDialogue}>
       <GlobalStyle />
       {isBattle && (
         <BattleHUD>
+          {/* 왼쪽 체력바 (적) */}
           <HpBarWrapper style={{ textAlign: 'left' }}>
             <HpBarBg>
-              <EnemyhpBarFill $hp={enemyHpPercent} />
+            <EnemyhpBarFill $hp={enemyHpPercent} />
             </HpBarBg>
             <HpName>윤지&진하T</HpName>
           </HpBarWrapper>
 
+          {/* 오른쪽 체력바 (플레이어) */}
           <HpBarWrapper style={{ textAlign: 'right' }}>
             <HpBarBg>
-              <PlayerhpBarFill $hp={playerHpPercent} />
+            <PlayerhpBarFill $hp={playerHpPercent} />
             </HpBarBg>
             <HpName>Player</HpName>
           </HpBarWrapper>
@@ -441,28 +455,31 @@ const PrologPage = () => {
           </MicCircle>
         </SpeakMicWrapper>
       )}
+      {/* STEP 1: 인트로 */}
       {step === 1 && (  
         <IntroOverlay>
-          <IntroText>점심시간 정원 앞</IntroText>
+          <IntroText>실습실</IntroText>
         </IntroOverlay> 
       )}
 
+      {/* STEP 2: 대화창 */}
       {step === 2 && (
         <>
           <StandingCharacter
             src={isBattle ? playerbattle1 : playerImg}
             alt="Character"
           />
-          {/* 3. State에 저장된 랜덤 이미지 사용 */}
-          <NpcCharacter2 src={currentNpcImage} alt="Character"/>      
+          <NpcCharacter2 src={npc2_1} alt="Character"/>      
           {showDialogueBox && (
           <DialogueSection>
+            {/* 좌측 프로필 */}
             <ProfileWrapper>
               <ProfileInner>
                 <ProfileImage src={currentSpeaker.profile} alt="Profile" />
               </ProfileInner>
             </ProfileWrapper>
 
+            {/* 우측 대화창 */}
             <MessageBox>
               <NameTag>
                 {currentSpeaker.name}
@@ -483,4 +500,4 @@ const PrologPage = () => {
   );
 };
 
-export default PrologPage;
+export default ComputerLabPage; 
